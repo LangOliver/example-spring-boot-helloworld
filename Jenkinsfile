@@ -2,8 +2,19 @@ pipeline {
   agent any
   stages {
     stage('Hello') {
-      steps {
-        echo 'Hello World'
+      parallel {
+        stage('Hello') {
+          steps {
+            echo 'Hello World'
+          }
+        }
+
+        stage('Build') {
+          steps {
+            sh '\'./gradlew clean build\''
+          }
+        }
+
       }
     }
 
